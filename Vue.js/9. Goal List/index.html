@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="inputParams" />
+      <button @click="addGoal">Add Goal</button>
+      <p v-show="goalsIsEmpty">No goals have been added yet - please start adding some!</p>
+      <p v-if="goalsIsEmpty">No goals have been added yet - please start adding some!</p>
+      <ul v-else>
+        <li v-for="(g, i) in goals">{{ goals[i] }} | {{ g }} | {{ i+1 }} <button @click="removeGoal(i)">X</button></li>
+      </ul>
+
+      <p>Object mapping</p>
+      <ul>
+        <li v-for="(value, key, index) in {a: 10, b: 20, c: 30}" :key="index">{{ key }} | {{ value }} | {{ index }}</li>
+      </ul>
+    </section>
+  </body>
+</html>
+
+<!-- v-if
+v-else-if
+v-else
+
+v-show just does display: none
+v-if removes it
+
+use vshow if youre changing a lot
+-->

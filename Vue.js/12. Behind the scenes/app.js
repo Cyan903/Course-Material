@@ -17,6 +17,11 @@ const app = Vue.createApp({
       this.message = this.$refs.userinput.value;
     },
   },
+
+  beforeCreate() {
+    // do more of this
+    console.log(document.body.innerHTML)
+  }
 });
 
 app.mount('#app');

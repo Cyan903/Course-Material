@@ -13,6 +13,7 @@ const app = Vue.createApp({
   methods: {
     setText() {
       // this.message = this.currentUserInput;
+      // same thing
       this.message = this.$refs.userinput.value;
     },
   },

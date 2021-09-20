@@ -7,6 +7,11 @@
 					:name="u.name"
 					:age="u.age"
 					:id="u.id"
+					:fav="u.fav"
+					:removed="u.removed"
+
+					@change-fav="toggleFav"
+					@remove-friend="removeFriend"
 				></contact-comp>
 			</li>
 		</ul>
@@ -20,12 +25,12 @@
 		data() {
 			return {
 				users: [
-					{ fav: false, id: 0, name: "OH", age: 1 },
-					{ fav: false, id: 1, name: "b", age: 2 },
-					{ fav: false, id: 2, name: "c", age: 3 },
-					{ fav: false, id: 3, name: "d", age: 4 },
-					{ fav: false, id: 4, name: "e", age: 5 },
-					{ fav: false, id: 5, name: "f", age: 6 },
+					{ removed: false, fav: false, id: 0, name: "OH", age: 1 },
+					{ removed: false, fav: false, id: 1, name: "b", age: 2 },
+					{ removed: false, fav: false, id: 2, name: "c", age: 3 },
+					{ removed: false, fav: false, id: 3, name: "d", age: 4 },
+					{ removed: false, fav: false, id: 4, name: "e", age: 5 },
+					{ removed: false, fav: false, id: 5, name: "f", age: 6 },
 				]
 			}
 		},
@@ -36,8 +41,17 @@
 					id: this.users[this.users.length-1].id+1,
 					name: prompt("Enter name:"),
 					age: parseInt(prompt("Enter age:")),
-					fav: false
+					fav: false,
+					removed: false
 				})
+			},
+
+			toggleFav(id) {
+				this.users[id].fav = !this.users[id].fav; 
+			},
+
+			removeFriend(id) {
+				this.users[id].removed = true;
 			}
 		}
 	}

@@ -46,7 +46,7 @@ export default {
   methods: {
     async loadExperiences() {
       this.loaded = false;
-      const data = await fetch("https://vue-http-test-7316e-default-rtdb.firebaseio.com/surveys.json").then(o => o.json());
+      const data = await fetch("dummy url").then(o => o.json());
       this.results.length = 0;
 
       for (let o in data) {

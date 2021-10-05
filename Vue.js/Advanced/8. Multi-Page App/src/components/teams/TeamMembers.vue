@@ -1,5 +1,10 @@
 <template>
-  <section>
+  <section v-if="notfound">
+    <span>
+      <h2>Nothing found!</h2>
+    </span>
+  </section>
+  <section v-else>
     <h2>{{ teamName }}</h2>
     <ul>
       <user-item
@@ -9,6 +14,7 @@
         :role="member.role"
       ></user-item>
     </ul>
+    <router-link to="/teams/2">GOTO 2</router-link>
   </section>
 </template>
 
@@ -16,18 +22,45 @@
 import UserItem from '../users/UserItem.vue';
 
 export default {
+  inject: ["users", "teams"],
   components: {
     UserItem
   },
+
   data() {
     return {
-      teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
+      notfound: false,
+      teamName: "",
+      members: [],
     };
   },
+
+  methods: {
+    updateRoute() {
+      // this.$route.path
+      const id = this.$route.params.id;
+      const team = this.teams.filter(o => o.id == `t${id}`);
+      
+      if (team.length == 0) {
+        this.notfound = true;
+        return;
+      }
+
+      this.teamName = team[0].name;
+      this.members = this.users.filter(o => team[0].members.includes(o.id));
+    }
+  },
+
+  created() {
+    this.updateRoute();
+  },
+
+  watch: {
+    $route() {
+      console.log(this.$route)
+      this.updateRoute();
+    }
+  }
 };
 </script>
 
@@ -48,5 +81,9 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+span {
+  text-align: center;
 }
 </style>

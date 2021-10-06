@@ -1,17 +1,42 @@
 <template>
-  <div class="backdrop" @click="$emit('close')"></div>
-  <dialog open>
-    <slot></slot>
-  </dialog>
+  <div>
+    <div v-if="open" class="backdrop" @click="$emit('close')"></div>
+    <transition>
+      <dialog open  v-if="open">
+        <slot></slot>
+      </dialog>
+    </transition>
+  </div>
 </template>
 
 <script>
 export default {
   emits: ['close'],
+  props: ["open"]
 };
 </script>
 
 <style scoped>
+.v-enter-active {
+  animation: modal 0.5s ease-in-out;
+}
+
+.v-leave-active {
+  animation: modal 0.5s ease-in reverse;
+}
+
+@keyframes modal {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .backdrop {
   position: fixed;
   top: 0;

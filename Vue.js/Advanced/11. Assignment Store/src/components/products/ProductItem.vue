@@ -19,10 +19,12 @@
 </template>
 
 <script>
-export default {
-  inject: ['addProductToCart'],
+import { mapMutations } from 'vuex';
+export default {  
   props: ['id', 'image', 'title', 'price', 'description'],
   methods: {
+    ...mapMutations(["addProductToCart"]),
+
     addToCart() {
       this.addProductToCart({
         id: this.id,

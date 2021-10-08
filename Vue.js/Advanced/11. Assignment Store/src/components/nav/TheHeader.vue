@@ -10,7 +10,7 @@
         </li>
         <li>
           <router-link to="/cart">Cart</router-link>
-          <base-badge mode="elegant">{{ cart.qty }}</base-badge>
+          <base-badge mode="elegant">{{ shoppingCart.qty }}</base-badge>
         </li>
         <li v-if="isLoggedIn">
           <router-link to="/admin">Admin</router-link>
@@ -25,8 +25,11 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
-  inject: ['isLoggedIn', 'login', 'logout', 'cart'],
+  methods: mapMutations(["login", "logout"]),
+  computed: mapGetters(["shoppingCart", "isLoggedIn"])
 };
 </script>
 

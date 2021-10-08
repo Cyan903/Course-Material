@@ -6,11 +6,6 @@
 import { mapMutations } from "vuex";
 
 export default {
-    methods: {
-        ...mapMutations(["add"])
-        // add() {
-        //     this.$store.commit("add");
-        // }
-    }
+    methods: mapMutations(["add"])
 }
 </script>

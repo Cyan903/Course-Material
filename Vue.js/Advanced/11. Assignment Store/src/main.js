@@ -5,10 +5,6 @@ import store from "./store/store.js";
 import App from './App.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
 
-// $store.getters.shoppingCart.qty 
-
-
-
 const app = createApp(App);
 
 app.use(router);

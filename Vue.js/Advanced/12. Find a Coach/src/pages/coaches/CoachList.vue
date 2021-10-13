@@ -1,32 +1,56 @@
 <template>
-    <div>
-        <section>Filters</section>
+    <base-card>
+        <section>
+            <CoachFilter @change-filters="setFilters" />
+        </section>
         <section>
             <div class="controls">
-                <button>Refresh</button>
-                <router-link to="/register">Register as Coach</router-link>
+                <base-button mode="outline">Refresh</base-button>
+                <base-button link="true" to="/register">Register as Coach</base-button>
             </div>
             <ul v-if="hasCoaches">
-                <CoachItem v-for="coach in getCoaches" :key="coach.id" :coach="coach" />
+                <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
             </ul>
             <h3 v-else>No coach data!</h3>
         </section>
-    </div>
+    </base-card>
 </template>
 
 
 <script>
 import { mapGetters } from "vuex";
 import CoachItem from "../../components/coaches/CoachItem.vue";
+import CoachFilter from "../../components/coaches/CoachFilter.vue";
 
 export default {
-    components: { CoachItem },
+    components: { CoachItem, CoachFilter },
+
+    data() {
+        return {
+            activeFilters: {
+                frontend: true,
+                backend: true,
+                career: true
+            }
+        }
+    },
 
     computed: {
         ...mapGetters("coaches", ["getCoaches", "hasCoaches"]),
 
         filteredCoaches() {
-            return this.$store.getters["coaches/getCoaches"];
+            return this.$store.getters["coaches/getCoaches"].filter(coach => {
+                console.log(coach.areas)
+                return ((this.activeFilters.frontend && coach.areas.includes("frontend")) || 
+                        (this.activeFilters.backend && coach.areas.includes("backend")) || 
+                        (this.activeFilters.career && coach.areas.includes("career")));
+            });
+        }
+    },
+
+    methods: {
+        setFilters(m) {
+            this.activeFilters = m;
         }
     }
 }

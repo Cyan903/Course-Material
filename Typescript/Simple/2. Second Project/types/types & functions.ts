@@ -15,3 +15,10 @@ str += " World!";
 
 console.log(str);
 console.log(add(n1, n2, "a", "b", 'c'));
+
+function returnType(t: ("num" | "str")) {
+    return (t == "num") ? 100 : "100";
+}
+
+console.log(returnType("num"));
+console.log(returnType("str"));

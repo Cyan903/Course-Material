@@ -6,7 +6,7 @@
         <section>
             <div class="controls">
                 <base-button mode="outline">Refresh</base-button>
-                <base-button link="true" to="/register">Register as Coach</base-button>
+                <base-button v-if="!isCoach" link="true" to="/register">Register as Coach</base-button>
             </div>
             <ul v-if="hasCoaches">
                 <CoachItem v-for="coach in filteredCoaches" :key="coach.id" :coach="coach" />
@@ -45,6 +45,10 @@ export default {
                         (this.activeFilters.backend && coach.areas.includes("backend")) || 
                         (this.activeFilters.career && coach.areas.includes("career")));
             });
+        },
+
+        isCoach() {
+            return this.$store.getters["coaches/isCoach"];
         }
     },
 

@@ -24,9 +24,25 @@ export default {
         };
     },
 
-    mutations: {},
+    mutations: {
+        insertCoach(state, payload) {
+            state.coaches.push(payload);
+        }
+    },
 
-    actions: {},
+    actions: {
+        addCoach(ctx, data) {
+            // 👍
+            data.hourlyRate = data["rate"];
+
+            const formData = {
+                id: ctx.rootGetters.userid,
+                ...data
+            };
+
+            ctx.commit("insertCoach", formData);
+        }
+    },
 
     getters: {
         getCoaches(state) {
@@ -35,6 +51,13 @@ export default {
 
         hasCoaches(state) {
             return state.coaches.length > 0;
+        },
+
+        isCoach(_, getters, _2, rootGetters) {
+            const coaches = getters.getCoaches;
+            const userid = rootGetters.userid;
+
+            return coaches.some(coach => coach.id == userid);
         }
     }
 };

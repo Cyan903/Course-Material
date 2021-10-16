@@ -1,0 +1,10 @@
+{
+	"scripts": {
+		"start": "tsc app; lite-server"
+	},
+	
+	"dependencies": {
+		"lite-server": "^2.6.1",
+		"typescript": "^4.4.4"
+	}
+}

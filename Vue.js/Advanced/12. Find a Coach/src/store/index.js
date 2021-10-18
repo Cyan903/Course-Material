@@ -1,13 +1,11 @@
 import { createStore } from "vuex";
 
 import coaches from "./coaches";
+import requests from "./requests";
 
 
 export default createStore({
-    modules: {
-        coaches
-    },
-
+    modules: { coaches, requests },
     state() {
         return {
             userid: Math.random()

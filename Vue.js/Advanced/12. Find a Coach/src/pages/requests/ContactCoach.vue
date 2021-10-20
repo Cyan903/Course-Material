@@ -6,7 +6,12 @@
         </div>
         <div class="form-control">
             <label for="message">Message</label>
-            <textarea id="message" v-model="message" cols="30" rows="10"></textarea>
+            <textarea
+                id="message"
+                v-model="message"
+                cols="30"
+                rows="10"
+            ></textarea>
         </div>
         <div class="actions" v-if="formValid">
             <base-button>Send Message</base-button>
@@ -24,9 +29,9 @@ export default {
             email: "",
             message: "",
             formValid: true
-        }
+        };
     },
-    
+
     methods: {
         submit() {
             if (!this.email.includes("@")) {
@@ -38,7 +43,7 @@ export default {
                 id: new Date().toISOString(),
                 email: this.email,
                 message: this.message,
-                coachid: this.$route.id
+                coachid: this.$route.params.id
             });
 
             this.$router.replace("/coaches");

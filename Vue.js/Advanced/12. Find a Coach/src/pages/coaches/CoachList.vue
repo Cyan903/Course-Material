@@ -1,8 +1,6 @@
 <template>
+    <CoachFilter @change-filters="setFilters" />
     <base-card>
-        <section>
-            <CoachFilter @change-filters="setFilters" />
-        </section>
         <section>
             <div class="controls">
                 <base-button mode="outline">Refresh</base-button>
@@ -40,7 +38,6 @@ export default {
 
         filteredCoaches() {
             return this.$store.getters["coaches/getCoaches"].filter(coach => {
-                console.log(coach.areas)
                 return ((this.activeFilters.frontend && coach.areas.includes("frontend")) || 
                         (this.activeFilters.backend && coach.areas.includes("backend")) || 
                         (this.activeFilters.career && coach.areas.includes("career")));

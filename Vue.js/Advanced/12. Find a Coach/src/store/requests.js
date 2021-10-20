@@ -19,8 +19,10 @@ export default {
     },
 
     getters: {
-        getRequests(state) {
-            return state.requests;
+        getRequests(state, _, _2, rootGetters) {
+            const id = rootGetters.userid;
+
+            return state.requests.filter(req => req.coachid == id);
         }
     }
 };

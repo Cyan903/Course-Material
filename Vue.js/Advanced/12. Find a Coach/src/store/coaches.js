@@ -2,45 +2,51 @@ export default {
     namespaced: true,
     state() {
         return {
-            coaches: [
-                {
-                    id: 'c1',
-                    firstName: 'Maximilian',
-                    lastName: 'Schwarzmüller',
-                    areas: ['frontend', 'backend', 'career'],
-                    description: "I'm Maximilian and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
-                    hourlyRate: 100000,
-                },
-
-                {
-                    id: 'c2',
-                    firstName: 'Julie',
-                    lastName: 'Jones',
-                    areas: ['frontend', 'career'],
-                    description: 'I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.',
-                    hourlyRate: 30,
-                },
-            ],
+            coaches: []
         };
     },
 
     mutations: {
         insertCoach(state, payload) {
             state.coaches.push(payload);
+        },
+
+        setCoaches(state, payload) {
+            state.coaches = payload;
         }
     },
 
     actions: {
-        addCoach(ctx, data) {
+        async addCoach(ctx, data) {
+            const id = ctx.rootGetters.userid;
+
             // 👍
             data.hourlyRate = data["rate"];
 
-            const formData = {
-                id: ctx.rootGetters.userid,
-                ...data
-            };
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/coaches/${id}.json`, {
+                method: "PUT",
+                body: JSON.stringify(data)
+            });
 
-            ctx.commit("insertCoach", formData);
+            if (!res.ok) return;
+            ctx.commit("insertCoach", { id, ...data });
+        },
+
+        async loadFromDB(ctx) {
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/coaches.json`);
+            if (!res.ok) return;
+
+            const data = await res.json();
+            const coaches = [];
+
+            for (let i in data) {
+                coaches.push({
+                    id: i,
+                    ...data[i]
+                });
+            }
+
+            ctx.commit("setCoaches", coaches);
         }
     },
 

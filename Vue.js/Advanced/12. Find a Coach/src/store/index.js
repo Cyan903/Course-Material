@@ -8,7 +8,7 @@ export default createStore({
     modules: { coaches, requests },
     state() {
         return {
-            userid: Math.random()
+            userid: ~~(Math.random()*1000000)
         };
     },
 

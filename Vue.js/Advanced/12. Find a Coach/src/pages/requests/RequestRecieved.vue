@@ -2,7 +2,8 @@
     <section>
         <base-card>
             <header><h2>Recieved Requests</h2></header>
-            <ul v-if="hasRequests">
+            <Spinner v-if="loading" />
+            <ul v-else-if="hasRequests">
                 <list-item
                     v-for="item in requests"
                     :key="item.id"
@@ -17,10 +18,22 @@
 
 <script>
 import Item from "../../components/requests/RequestItem.vue";
+import Spinner from "../../components/base/Spinner.vue";
 
 export default {
+    data() {
+        return {
+            loading: true
+        }
+    },
+    
     components: {
-        "list-item": Item
+        "list-item": Item,
+        Spinner
+    },
+
+    created() {
+        this.loadAllRequests();
     },
 
     computed: {
@@ -31,6 +44,14 @@ export default {
         hasRequests() {
             const req = this.$store.getters["requests/getRequests"];
             return req && req.length > 0;
+        }
+    },
+
+    methods: {
+        async loadAllRequests() {
+            this.loading = true;
+            await this.$store.dispatch("requests/loadAllRequests");
+            this.loading = false;
         }
     }
 };

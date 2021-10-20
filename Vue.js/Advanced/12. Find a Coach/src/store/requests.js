@@ -9,12 +9,41 @@ export default {
     mutations: {
         addRequest(state, payload) {
             state.requests.push(payload);
+        },
+
+        setRequests(state, payload) {
+            state.requests = payload;
         }
     },
 
     actions: {
-        insertCoach(ctx, data) {
-            ctx.commit("addRequest", data);
+        async insertCoach(ctx, data) {
+            const id = data.coachid;
+
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/requests/${id}.json`, {
+                method: "PUT",
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) return;
+
+            ctx.commit("addRequest", await res.json());
+        },
+
+        async loadAllRequests(ctx) {
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/requests.json`);
+
+            if (!res.ok) return;
+
+            const json = await res.json();
+            const requests = [];
+
+            for (let i in json) {
+                requests.push(json[i]);
+            }
+
+
+            ctx.commit("setRequests", requests);
         }
     },
 

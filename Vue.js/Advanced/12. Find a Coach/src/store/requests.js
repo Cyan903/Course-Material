@@ -18,7 +18,7 @@ export default {
 
     actions: {
         async insertCoach(ctx, data) {
-            const id = data.coachid;
+            const id = ctx.rootGetters.userid;
 
             const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/requests/${id}.json`, {
                 method: "PUT",
@@ -31,7 +31,8 @@ export default {
         },
 
         async loadAllRequests(ctx) {
-            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/requests.json`);
+            const token = ctx.rootGetters.token;
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/requests.json?auth=${token}`);
 
             if (!res.ok) return;
 

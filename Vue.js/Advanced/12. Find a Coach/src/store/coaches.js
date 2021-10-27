@@ -19,11 +19,12 @@ export default {
     actions: {
         async addCoach(ctx, data) {
             const id = ctx.rootGetters.userid;
+            const token = ctx.rootGetters.token;
 
             // 👍
             data.hourlyRate = data["rate"];
 
-            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/coaches/${id}.json`, {
+            const res = await fetch(`https://vue-coach-app-a8b1e-default-rtdb.firebaseio.com/coaches/${id}.json?auth=${token}`, {
                 method: "PUT",
                 body: JSON.stringify(data)
             });

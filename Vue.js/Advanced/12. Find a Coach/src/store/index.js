@@ -1,20 +1,10 @@
 import { createStore } from "vuex";
 
+import auth from "./auth";
 import coaches from "./coaches";
 import requests from "./requests";
 
 
 export default createStore({
-    modules: { coaches, requests },
-    state() {
-        return {
-            userid: ~~(Math.random()*1000000)
-        };
-    },
-
-    getters: {
-        userid(state) {
-            return state.userid;
-        }
-    }
+    modules: { auth, coaches, requests }
 });

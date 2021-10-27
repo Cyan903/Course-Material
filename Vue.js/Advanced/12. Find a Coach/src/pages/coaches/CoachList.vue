@@ -7,7 +7,8 @@
                     <base-button mode="outline" @click="loadCoaches"
                         >Refresh</base-button
                     >
-                    <base-button v-if="!isCoach" link="true" to="/register"
+                    <base-button link="link" to="/auth" v-if="!loggedIn">Login</base-button>
+                    <base-button v-else-if="!isCoach && loggedIn" link="true" to="/register"
                         >Register as Coach</base-button
                     >
                 </div>
@@ -53,6 +54,9 @@ export default {
 
     computed: {
         ...mapGetters("coaches", ["getCoaches", "hasCoaches"]),
+        loggedIn() {
+            return this.$store.getters.authenticated;
+        },
 
         filteredCoaches() {
             return this.$store.getters["coaches/getCoaches"].filter(coach => {

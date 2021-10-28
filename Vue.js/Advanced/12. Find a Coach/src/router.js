@@ -8,6 +8,7 @@ import ContactCoach from "./pages/requests/ContactCoach.vue";
 import RequestRecieved from "./pages/requests/RequestRecieved.vue";
 import UserAuth from "./pages/auth/UserAuth.vue";
 
+import store from "./store/index";
 import NotFound from "./pages/NotFound.vue";
 
 const router = createRouter({
@@ -37,17 +38,20 @@ const router = createRouter({
         
         {
             path: "/register",
-            component: CoachRegister
+            component: CoachRegister,
+            meta: { authRequired: true }
         },
 
         {
             path: "/requests",
-            component: RequestRecieved
+            component: RequestRecieved,
+            meta: { authRequired: true }
         },
 
         {
             path: "/auth",
-            component: UserAuth
+            component: UserAuth,
+            meta: { authNotRequired: true }
         },
 
         {
@@ -55,6 +59,16 @@ const router = createRouter({
             component: NotFound
         },
     ]
+});
+
+router.beforeEach(function(to, _, next) {
+    if (to.meta.authRequired && !store.getters.authenticated) {
+        return next("/auth");
+    } else if (to.meta.authNotRequired && store.getters.authenticated) {
+        return next("/coaches");
+    }
+
+    next();
 });
 
 export default router;

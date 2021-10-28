@@ -13,8 +13,23 @@
 import Header from "./components/layout/Header.vue";
 
 export default {
-    components: {
-        Header
+    components: { Header },
+    created() {
+        this.$store.dispatch("attemptAutoLogin");
+    },
+
+    computed: {
+        autoLogout() {
+            return this.$store.getters.didAutoLogout;
+        }
+    },
+
+    watch: {
+        autoLogout(n, old) {
+            if (n && n != old) {
+                this.$router.replace("/coaches");
+            }
+        }
     }
 };
 </script>

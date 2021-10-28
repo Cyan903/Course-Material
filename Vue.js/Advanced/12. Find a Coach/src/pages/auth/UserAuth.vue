@@ -67,6 +67,7 @@ export default {
             }
 
             this.loading = false;
+            this.$router.replace("/coaches");
         },
 
         switchMode() {

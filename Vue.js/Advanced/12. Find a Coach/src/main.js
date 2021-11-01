@@ -17,5 +17,4 @@ app.component("base-card", BaseCard);
 app.component("base-button", BaseButton);
 app.component("base-badge", BaseBadge);
 
-
 app.mount("#app");

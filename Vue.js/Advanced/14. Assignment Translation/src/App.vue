@@ -3,57 +3,39 @@
 		<header>
 			<h1>Expense Tracker</h1>
 		</header>
-		<section>
-			<div>Available Funds: {{ availableFunds }}</div>
-			<div>Total Expenses: {{ currentExpenses }}</div>
-			<hr />
-			<div>Funds left: {{ remainingFunds }}</div>
-		</section>
-		<section>
-			<form @submit.prevent="addExpense">
-				<div>
-					<label for="amount">Amount</label>
-					<input id="amount" type="number" v-model="enteredExpense" />
-				</div>
-				<button>Add Expense</button>
-			</form>
-		</section>
+
+		<Data
+			:availableFunds="availableFunds"
+			:currentExpenses="currentExpenses"
+		/>
+
+		<Input />
 	</div>
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, provide } from "vue";
+import Data from "./components/Data.vue";
+import Input from "./components/Input.vue";
 
 export default {
+	components: { Data, Input },
 	setup() {
 		const availableFunds = ref(100);
 		const currentExpenses = ref(0);
 		const enteredExpense = ref(0);
-
-		// Computed
-		const remainingFunds = computed(() => availableFunds.value - currentExpenses.value);
-
-		// Watchers
-		watch(remainingFunds, val => {
-			if (val < 0) {
-				alert("You are broke!");
-			}
-		});
-
+		
 		// Methods
 		const addExpense = () => {
 			currentExpenses.value += enteredExpense.value;
 		};
+	
+		provide("enteredExpense", enteredExpense);
+		provide("addExpense", addExpense);
 
-		return {
-			availableFunds,
-			currentExpenses,
-			enteredExpense,
-			remainingFunds,
-			addExpense
-		}
+		return { availableFunds, currentExpenses };
 	},
-}
+};
 </script>
 
 <style>

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, toRefs } from "vue";
 import ProjectItem from "./ProjectItem.vue";
 
 export default {
@@ -42,7 +42,6 @@ export default {
 		});
 
 		const availableProjects = computed(() => {
-			console.log(enteredSearchTerm.value);
 			if (activeSearchTerm.value) {
 				return props.user.projects.filter((prj) =>
 					prj.title.includes(activeSearchTerm.value)
@@ -60,7 +59,7 @@ export default {
 			}, 300);
 		});
 
-		watch(ref(props.user), () => {
+		watch(toRefs(props).user, () => {
 			enteredSearchTerm.value = "";
 		});
 

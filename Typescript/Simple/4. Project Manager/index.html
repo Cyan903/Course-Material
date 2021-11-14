@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="./dist/app.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div>
+        <form id="inputForm">
+            <div>
+                <label for="title">Title</label>
+                <input type="text" placeholder="Title" name="title">
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <input type="text" placeholder="Description" name="description">
+            </div>
+            <div>
+                <label for="people">People</label>
+                <input type="number" max="10" min="1" placeholder="# of people" name="people">
+            </div>
+            
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <div>
+        <div id="active" class="drag">
+            <h1>Active Projects</h1>
+        </div>
+        <div id="completed" class="drag">
+            <h1>Completed Projects</h1>
+        </div>
+    </div>
+</body>
+</html>

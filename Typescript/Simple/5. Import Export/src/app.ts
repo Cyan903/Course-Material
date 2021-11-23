@@ -1,3 +1,3 @@
-import { app } from "./objects/events.js";
+import { app as App } from "./objects/events.js";
 
-app();
+App();

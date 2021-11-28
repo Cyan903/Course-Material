@@ -2,7 +2,7 @@
 	"scripts": {
 		"build": "webpack",
 		"startlite": "lite-server .",
-		"start": "webpack-dev-server"
+		"start": "webpack serve"
 	},
 	"devDependencies": {
 		"lite-server": "^2.6.1",

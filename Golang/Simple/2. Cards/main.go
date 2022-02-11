@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	cards := genDeck()
@@ -12,8 +14,12 @@ func main() {
 	fmt.Println(hand.toString())
 
 	cards.save("tmp/card.txt")
+	cards.shuffle()
+	cards.save("tmp/card_shuffled.txt")
+
 	hand.save("tmp/hand.txt")
 
 	fmt.Println("Reading card values")
 	readDeck("tmp/card.txt").Print()
+
 }

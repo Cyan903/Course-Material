@@ -1,4 +1,4 @@
-package main
+package deck
 
 import (
 	"fmt"
@@ -8,12 +8,12 @@ import (
 	"time"
 )
 
-type deck []string
+type Deck []string
 
-func genDeck() deck {
+func GenDeck() Deck {
 	suits := [4]string{"Spades", "Diamonds", "Hearts", "Clubs"}
 	vals := [9]string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}
-	res := deck{}
+	res := Deck{}
 
 	for _, suit := range suits {
 		for _, val := range vals {
@@ -24,33 +24,33 @@ func genDeck() deck {
 	return res
 }
 
-func readDeck(filename string) deck {
+func ReadDeck(filename string) Deck {
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Println("Error reading deck.")
-		return deck{}
+		return Deck{}
 	}
 
 	return strings.Split(string(data), "\n")
 }
 
-func (d deck) Print() {
+func (d Deck) Print() {
 	fmt.Println("Printing deck...")
 	for i, j := range d {
 		fmt.Printf("Index: %d, Card: %s\n", i, j)
 	}
 }
 
-func (d deck) DealHand(hand int) (deck, deck) {
+func (d Deck) DealHand(hand int) (Deck, Deck) {
 	return d[:hand], d[hand:]
 }
 
-func (d deck) toString() string {
+func (d Deck) ToString() string {
 	return strings.Join(d[:], "\n")
 }
 
-func (d deck) save(filename string) {
-	strDeck := d.toString()
+func (d Deck) Save(filename string) {
+	strDeck := d.ToString()
 	deckByte := []byte(strDeck)
 
 	err := os.WriteFile(filename, deckByte, 0666)
@@ -60,14 +60,14 @@ func (d deck) save(filename string) {
 	}
 }
 
-func (d deck) shuffle() {
+func (d Deck) Shuffle() {
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(d), func(i, j int) {
 		d[i], d[j] = d[j], d[i]
 	})
 }
 
-func (d deck) shuffle_old() {
+func (d Deck) Shuffle_old() {
 	rand.Seed(time.Now().UnixNano())
 	
 	for i := range d {

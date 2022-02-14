@@ -8,13 +8,9 @@ import (
 
 func main() {
 	cards := deck.GenDeck()
-	hand, remaining := cards.DealHand(9)
+	hand, _ := cards.DealHand(9)
 	testDeck := deck.Deck{"a", "b"}
 
-	hand.Print()
-	remaining.Print()
-	fmt.Println(string([]byte{65, 97}))
-	fmt.Println(hand.ToString())
 
 	cards.Save("tmp/card.txt")
 	cards.Shuffle()

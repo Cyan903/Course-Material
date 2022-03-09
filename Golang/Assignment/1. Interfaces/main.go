@@ -29,7 +29,9 @@ func (t triangle) getArea() float64 {
 
 func main() {
 	tri := triangle{10, 5}
-	sqa := square{5}
+	sqa := square{
+		sideLength: 5,
+	}
 
 	printArea(tri)
 	printArea(sqa)

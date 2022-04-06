@@ -1,0 +1,51 @@
+
+<h1>Main page</h1>
+<h2>{{ .EData }}</h2>
+<ul>
+    {{ range $i, $j := .InfoData }}
+        <li id="i-{{ $i }}">Info: {{ $j }}</li> 
+    {{ end }}
+</ul>
+
+<textarea>
+{{ $output := "S p a c e d" }}
+{{ $output }}
+
+{{/* {{ killSpaces $output }} */}}
+{{/* Having this enabled at runtime for some reason crashes Go... */}}
+</textarea>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Config</th>
+        </tr>
+    </thead>
+
+    {{/* Nested struct */}}
+    <tbody>
+        {{ with .Config }}
+            <tr>
+                <td>Port</td>
+                <td>{{ .Port }}</td>
+            </tr>
+
+            <tr>
+                <td>Address</td>
+                <td>{{ .Addr }}</td>
+            </tr>
+
+            <tr>
+                <td>Requests</td>
+                <td>
+                    <ol>
+                        {{ range .Requests }}
+                            <li>{{ . }}</li>
+                        {{ end }}
+                    </ol>
+                </td>
+            </tr>
+        {{ end }}
+    </tbody>
+</table>
